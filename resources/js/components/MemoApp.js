@@ -7,13 +7,16 @@ export default class MemoApp extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            memoId: '',
-            memoTitle: ''
+            memoId: null,
+            memoTitle: 'Memo App'
         }
     }
 
     click(param) {
-        this.setState({ memoTitle: param })
+        this.setState({
+            memoTitle: param,
+            memoId: 0
+        })
     }
 
     render() {
@@ -21,9 +24,21 @@ export default class MemoApp extends Component {
 
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-md-3">
+                    <div className="col-md-3" style={{ padding: 0 }}>
                         <div className="card">
-                            <div className="card-header">Memo Title</div>
+                            <div
+                                className="card-header"
+                                style={{ backgroundColor: "rgb(172, 27, 46)", color: "#FFFFFF", fontSize: 18 }}>
+                                Memo Title
+                                <button
+                                    className="btn"
+                                    style={{
+                                        position: "absolute",
+                                        top: 5,
+                                        right: 5,
+                                        color: "white"
+                                    }}>+</button>
+                            </div>
                             <ul className="list-group">
                                 <li className="list-group-item" onClick={() => this.click("test1")}>
                                     test1
@@ -37,11 +52,16 @@ export default class MemoApp extends Component {
                             </ul>
                         </div>
                     </div>
-                    <div className="col-md-9">
+                    <div className="col-md-9" style={{ padding: 0 }}>
                         <div className="card">
-                            <div className="card-header">{this.state.memoTitle}</div>
+                            <div
+                                className="card-header"
+                                style={{ backgroundColor: "#008ECC", color: "#FFFFFF", fontSize: 18 }}>
+                                {this.state.memoTitle}
+                            </div>
                             <Text
                                 text={this.state.memoTitle}
+                                memoId={this.state.memoId}
                             />
                         </div>
                     </div>

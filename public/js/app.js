@@ -59982,8 +59982,8 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(MemoApp).call(this, props));
     _this.state = {
-      memoId: '',
-      memoTitle: ''
+      memoId: null,
+      memoTitle: 'Memo App'
     };
     return _this;
   }
@@ -59992,7 +59992,8 @@ function (_Component) {
     key: "click",
     value: function click(param) {
       this.setState({
-        memoTitle: param
+        memoTitle: param,
+        memoId: 0
       });
     }
   }, {
@@ -60005,12 +60006,28 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-3"
+        className: "col-md-3",
+        style: {
+          padding: 0
+        }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-header"
-      }, "Memo Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "card-header",
+        style: {
+          backgroundColor: "rgb(172, 27, 46)",
+          color: "#FFFFFF",
+          fontSize: 18
+        }
+      }, "Memo Title", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn",
+        style: {
+          position: "absolute",
+          top: 5,
+          right: 5,
+          color: "white"
+        }
+      }, "+")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "list-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "list-group-item",
@@ -60028,13 +60045,22 @@ function (_Component) {
           return _this2.click("test3");
         }
       }, "test3")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-9"
+        className: "col-md-9",
+        style: {
+          padding: 0
+        }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-header"
+        className: "card-header",
+        style: {
+          backgroundColor: "#008ECC",
+          color: "#FFFFFF",
+          fontSize: 18
+        }
       }, this.state.memoTitle), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Text_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        text: this.state.memoTitle
+        text: this.state.memoTitle,
+        memoId: this.state.memoId
       })))));
     }
   }]);
