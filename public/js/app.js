@@ -60023,9 +60023,10 @@ function (_Component) {
         className: "btn",
         style: {
           position: "absolute",
-          top: 5,
+          top: 0,
           right: 5,
-          color: "white"
+          color: "white",
+          fontSize: 24
         }
       }, "+")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "list-group"

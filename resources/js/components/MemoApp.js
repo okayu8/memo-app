@@ -34,9 +34,10 @@ export default class MemoApp extends Component {
                                     className="btn"
                                     style={{
                                         position: "absolute",
-                                        top: 5,
+                                        top: 0,
                                         right: 5,
-                                        color: "white"
+                                        color: "white",
+                                        fontSize: 24
                                     }}>+</button>
                             </div>
                             <ul className="list-group">
