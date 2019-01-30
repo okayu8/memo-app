@@ -59947,7 +59947,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Text_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Text.js */ "./resources/js/components/Text.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _TitleAndText_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TitleAndText.js */ "./resources/js/components/TitleAndText.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -59970,6 +59972,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var MemoApp =
 /*#__PURE__*/
 function (_Component) {
@@ -59983,12 +59986,32 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(MemoApp).call(this, props));
     _this.state = {
       memoId: null,
-      memoTitle: 'Memo App'
+      memoTitle: 'Memo App',
+      memoText: 'This is Memo Text',
+      memosData: '',
+      mode: 'show'
     };
     return _this;
   }
 
   _createClass(MemoApp, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/memos').then(function (response) {
+        console.log('memos.data:' + JSON.stringify(response.data));
+
+        _this2.setState({
+          data: response.data,
+          nextUrl: response.data.next_page_url,
+          prevUrl: response.data.prev_page_url
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
     key: "click",
     value: function click(param) {
       this.setState({
@@ -59999,7 +60022,15 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
+
+      var showComponent = function showComponent(props) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TitleAndText_js__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          text: _this3.state.memoTitle,
+          memoId: _this3.state.memoId,
+          memoTitle: _this3.state.memoTitle
+        });
+      };
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container-fluid"
@@ -60033,36 +60064,24 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "list-group-item",
         onClick: function onClick() {
-          return _this2.click("test1");
+          return _this3.click("test111");
         }
       }, "test1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "list-group-item",
         onClick: function onClick() {
-          return _this2.click("test2");
+          return _this3.click("test222");
         }
       }, "test2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "list-group-item",
         onClick: function onClick() {
-          return _this2.click("test3");
+          return _this3.click("test333");
         }
-      }, "test3")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-9",
-        style: {
-          padding: 0
-        }
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-header",
-        style: {
-          backgroundColor: "#008ECC",
-          color: "#FFFFFF",
-          fontSize: 18
-        }
-      }, this.state.memoTitle), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Text_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }, "test3")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(MemoContent, {
+        mode: this.state.mode,
         text: this.state.memoTitle,
-        memoId: this.state.memoId
-      })))));
+        memoId: this.state.memoId,
+        memoTitle: this.state.memoTitle
+      })));
     }
   }]);
 
@@ -60071,22 +60090,52 @@ function (_Component) {
 
 
 
+var MemoContent =
+/*#__PURE__*/
+function (_Component2) {
+  _inherits(MemoContent, _Component2);
+
+  function MemoContent() {
+    _classCallCheck(this, MemoContent);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(MemoContent).apply(this, arguments));
+  }
+
+  _createClass(MemoContent, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-9",
+        style: {
+          padding: 0
+        }
+      }, this.props.mode === 'show' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TitleAndText_js__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        text: this.props.memoTitle,
+        memoId: this.props.memoId,
+        memoTitle: this.props.memoTitle
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Hello"));
+    }
+  }]);
+
+  return MemoContent;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
 if (document.getElementById('memoApp')) {
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(MemoApp, null), document.getElementById('memoApp'));
 }
 
 /***/ }),
 
-/***/ "./resources/js/components/Text.js":
-/*!*****************************************!*\
-  !*** ./resources/js/components/Text.js ***!
-  \*****************************************/
+/***/ "./resources/js/components/TitleAndText.js":
+/*!*************************************************!*\
+  !*** ./resources/js/components/TitleAndText.js ***!
+  \*************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Text; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TitleAndText; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -60109,27 +60158,36 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var Text =
+var TitleAndText =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(Text, _Component);
+  _inherits(TitleAndText, _Component);
 
-  function Text() {
-    _classCallCheck(this, Text);
+  function TitleAndText() {
+    _classCallCheck(this, TitleAndText);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Text).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(TitleAndText).apply(this, arguments));
   }
 
-  _createClass(Text, [{
+  _createClass(TitleAndText, [{
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-header",
+        style: {
+          backgroundColor: "#008ECC",
+          color: "#FFFFFF",
+          fontSize: 18
+        }
+      }, this.props.memoTitle), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, this.props.text);
+      }, this.props.text));
     }
   }]);
 
-  return Text;
+  return TitleAndText;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 

@@ -7,6 +7,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Memo App!</title>
         <link href="{{asset('css/app.css')}}" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="{{asset('images/icon1.png')}}">
         <style>
         body {
             animation: fadeIn 2s ease 0s 1 normal;
