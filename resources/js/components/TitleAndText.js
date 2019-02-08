@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
+import Editor from 'draft-js-editor'
 
 export default class TitleAndText extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            editorState: "",
+        }
+    }
+
+    componentDidMount() {
+        this.setState({ editorState: "" })
+    }
 
     render() {
         return (
@@ -12,6 +24,11 @@ export default class TitleAndText extends Component {
                 </div>
                 <div className="card-body" >
                     {this.props.text}
+                    <Editor
+                        onChange={(editorState) => this.setState(
+                            { editorState: editorState })}
+                        editorState={this.state.editorState}
+                    />
                 </div>
             </div >
         )

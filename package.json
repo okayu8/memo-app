@@ -27,6 +27,9 @@
         "sass-loader": "^7.1.0"
     },
     "dependencies": {
+        "draft-js-editor": "^1.12.4",
+        "draft-wysiwyg": "^0.2.4",
+        "react-draft-wysiwyg": "^1.13.1",
         "react-router-dom": "^4.3.1",
         "styled-components": "^4.1.3"
     }
