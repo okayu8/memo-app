@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('users', 'UserController');
+
+Route::get('logout', 'yourSessionController@logout');
+
+Route::prefix('api')->group(function () {
+    Route::resource('memos', 'MemoAppController', ['only' => ['index', 'store', 'show', 'update', 'destroy', 'login']]);
+});

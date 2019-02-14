@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Text from './Text.js';
+import axios from 'axios';
+import TitleAndText from './TitleAndText.js';
 
 export default class MemoApp extends Component {
 
@@ -8,8 +9,26 @@ export default class MemoApp extends Component {
         super(props);
         this.state = {
             memoId: null,
-            memoTitle: 'Memo App'
+            memoTitle: 'Memo App',
+            memoText: 'This is Memo Text',
+            memosData: '',
+            mode: 'show',
         }
+    }
+
+    componentDidMount() {
+        axios.get('/api/memos')
+            .then(response => {
+                console.log('memos.data:' + JSON.stringify(response.data))
+                this.setState({
+                    data: response.data,
+                    nextUrl: response.data.next_page_url,
+                    prevUrl: response.data.prev_page_url,
+                })
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
     }
 
     click(param) {
@@ -20,58 +39,72 @@ export default class MemoApp extends Component {
     }
 
     render() {
-        return (
+        const showComponent = (props) => {
+            return <TitleAndText
+                text={this.state.memoTitle}
+                memoId={this.state.memoId}
+                memoTitle={this.state.memoTitle}
+            />;
+        }
 
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-md-3" style={{ padding: 0 }}>
-                        <div className="card">
-                            <div
-                                className="card-header"
-                                style={{ backgroundColor: "rgb(172, 27, 46)", color: "#FFFFFF", fontSize: 18 }}>
-                                Memo Title
+        return (<div className="container-fluid">
+            <div className="row">
+                <div className="col-md-3" style={{ padding: 0 }}>
+                    <div className="card">
+                        <div
+                            className="card-header"
+                            style={{ backgroundColor: "rgb(172, 27, 46)", color: "#FFFFFF", fontSize: 18 }}>
+                            Memo Title
                                 <button
-                                    className="btn"
-                                    style={{
-                                        position: "absolute",
-                                        top: 0,
-                                        right: 5,
-                                        color: "white",
-                                        fontSize: 24
-                                    }}>+</button>
-                            </div>
-                            <ul className="list-group">
-                                <li className="list-group-item" onClick={() => this.click("test1")}>
-                                    test1
-                                </li>
-                                <li className="list-group-item" onClick={() => this.click("test2")}>
-                                    test2
-                                </li>
-                                <li className="list-group-item" onClick={() => this.click("test3")}>
-                                    test3
-                                </li>
-                            </ul>
+                                className="btn"
+                                style={{
+                                    position: "absolute",
+                                    top: 0,
+                                    right: 5,
+                                    color: "white",
+                                    fontSize: 24
+                                }}>+</button>
                         </div>
-                    </div>
-                    <div className="col-md-9" style={{ padding: 0 }}>
-                        <div className="card">
-                            <div
-                                className="card-header"
-                                style={{ backgroundColor: "#008ECC", color: "#FFFFFF", fontSize: 18 }}>
-                                {this.state.memoTitle}
-                            </div>
-                            <Text
-                                text={this.state.memoTitle}
-                                memoId={this.state.memoId}
-                            />
-                        </div>
+                        <ul className="list-group">
+                            <li className="list-group-item" onClick={() => this.click("test111")}>
+                                test1
+                            </li>
+                            <li className="list-group-item" onClick={() => this.click("test222")}>
+                                test2
+                            </li>
+                            <li className="list-group-item" onClick={() => this.click("test333")}>
+                                test3
+                            </li>
+                        </ul>
                     </div>
                 </div>
+                <MemoContent
+                    mode={this.state.mode}
+                    text={this.state.memoTitle}
+                    memoId={this.state.memoId}
+                    memoTitle={this.state.memoTitle}
+                />
+
             </div>
-        );
+        </div>);
     }
+}
 
+class MemoContent extends Component {
+    render() {
+        return (
+            <div className="col-md-9" style={{ padding: 0 }}>
+                {this.props.mode === 'show' ?
+                    <TitleAndText
+                        text={this.props.memoTitle}
+                        memoId={this.props.memoId}
+                        memoTitle={this.props.memoTitle}
+                    />
+                    : <span>Hello</span>}
+            </div>
 
+        )
+    }
 }
 
 if (document.getElementById('memoApp')) {
