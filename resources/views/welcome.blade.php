@@ -26,7 +26,7 @@
     </style>
     </head>
     <body>
-        <div id="memoApp"></div>
+        <div id="root"></div>
         <script src="{{asset('js/app.js')}}" ></script>
     </body>
 </html>
