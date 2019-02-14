@@ -81687,7 +81687,8 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TitleAndText).call(this, props));
     _this.state = {
-      editorState: ""
+      editorState: "",
+      mode: "preview"
     };
     return _this;
   }
@@ -81700,29 +81701,57 @@ function (_Component) {
       });
     }
   }, {
+    key: "switchMode",
+    value: function switchMode() {
+      this.setState({
+        mode: this.state.mode == "edit" ? "preview" : "edit"
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-header",
-        style: {
-          backgroundColor: "#008ECC",
-          color: "#FFFFFF",
-          fontSize: 18
-        }
-      }, this.props.memoTitle), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-body"
-      }, this.props.text, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(draft_js_editor__WEBPACK_IMPORTED_MODULE_1___default.a, {
-        onChange: function onChange(editorState) {
-          return _this2.setState({
-            editorState: editorState
-          });
-        },
-        editorState: this.state.editorState
-      })));
+      if (this.state.mode === "edit") {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "card"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "card-header",
+          style: {
+            backgroundColor: "#008ECC",
+            color: "#FFFFFF",
+            fontSize: 18
+          }
+        }, this.props.memoTitle, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          onClick: function onClick() {
+            _this2.switchMode();
+          }
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(draft_js_editor__WEBPACK_IMPORTED_MODULE_1___default.a, {
+          onChange: function onChange(editorState) {
+            return _this2.setState({
+              editorState: editorState
+            });
+          },
+          editorState: this.state.editorState
+        }));
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "card"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "card-header",
+          style: {
+            backgroundColor: "#008ECC",
+            color: "#FFFFFF",
+            fontSize: 18
+          }
+        }, this.props.memoTitle, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          onClick: function onClick() {
+            _this2.switchMode();
+          }
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "card-body"
+        }, this.props.text));
+      }
     }
   }]);
 
