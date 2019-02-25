@@ -7,7 +7,6 @@ export default class TitleAndText extends Component {
         super(props);
         this.state = {
             editorState: "",
-            mode: "preview"
         }
     }
 

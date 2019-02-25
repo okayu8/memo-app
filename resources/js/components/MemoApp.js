@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import TitleAndText from './TitleAndText.js';
+import Edit from './Edit.js';
 
 export default class MemoApp extends Component {
 
@@ -31,6 +32,10 @@ export default class MemoApp extends Component {
             })
     }
 
+    switchMode() {
+        this.setState({ mode: this.state.mode == "edit" ? "show" : "edit" })
+    }
+
     click(param) {
         this.setState({
             memoTitle: param,
@@ -39,14 +44,6 @@ export default class MemoApp extends Component {
     }
 
     render() {
-        const showComponent = (props) => {
-            return <TitleAndText
-                text={this.state.memoTitle}
-                memoId={this.state.memoId}
-                memoTitle={this.state.memoTitle}
-            />;
-        }
-
         return (<div className="container-fluid">
             <div className="row">
                 <div className="col-md-3" style={{ padding: 0 }}>
@@ -78,6 +75,7 @@ export default class MemoApp extends Component {
                         </ul>
                     </div>
                 </div>
+                <button onClick={() => { this.switchMode() }} />
                 <MemoContent
                     mode={this.state.mode}
                     text={this.state.memoTitle}
@@ -92,6 +90,7 @@ export default class MemoApp extends Component {
 
 class MemoContent extends Component {
     render() {
+        console.log(this.props.mode)
         return (
             <div className="col-md-9" style={{ padding: 0 }}>
                 {this.props.mode === 'show' ?
@@ -100,7 +99,11 @@ class MemoContent extends Component {
                         memoId={this.props.memoId}
                         memoTitle={this.props.memoTitle}
                     />
-                    : <span>Hello</span>}
+                    : <Edit
+                        text={this.props.memoTitle}
+                        memoId={this.props.memoId}
+                        memoTitle={this.props.memoTitle}
+                    />}
             </div>
 
         )

@@ -83677,23 +83677,20 @@ if (token) {
 
 /***/ }),
 
-/***/ "./resources/js/components/MemoApp.js":
-/*!********************************************!*\
-  !*** ./resources/js/components/MemoApp.js ***!
-  \********************************************/
+/***/ "./resources/js/components/Edit.js":
+/*!*****************************************!*\
+  !*** ./resources/js/components/Edit.js ***!
+  \*****************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return MemoApp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Edit; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _TitleAndText_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TitleAndText.js */ "./resources/js/components/TitleAndText.js");
+/* harmony import */ var draft_js_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! draft-js-editor */ "./node_modules/draft-js-editor/lib/Editor.js");
+/* harmony import */ var draft_js_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(draft_js_editor__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -83711,6 +83708,108 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var Edit =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Edit, _Component);
+
+  function Edit(props) {
+    var _this;
+
+    _classCallCheck(this, Edit);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Edit).call(this, props));
+    _this.state = {
+      editorState: "",
+      text: ""
+    };
+    return _this;
+  }
+
+  _createClass(Edit, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.setState({
+        editorState: ""
+      });
+      this.setState({
+        text: this.props.text
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-header",
+        style: {
+          backgroundColor: "#008ECC",
+          color: "#FFFFFF",
+          fontSize: 18
+        }
+      }, this.props.memoTitle), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body"
+      }, this.props.text, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(draft_js_editor__WEBPACK_IMPORTED_MODULE_1___default.a, {
+        onChange: function onChange(editorState) {
+          return _this2.setState({
+            editorState: editorState
+          });
+        },
+        editorState: this.state.editorState
+      })));
+    }
+  }]);
+
+  return Edit;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/MemoApp.js":
+/*!********************************************!*\
+  !*** ./resources/js/components/MemoApp.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return MemoApp; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _TitleAndText_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TitleAndText.js */ "./resources/js/components/TitleAndText.js");
+/* harmony import */ var _Edit_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Edit.js */ "./resources/js/components/Edit.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -83756,6 +83855,13 @@ function (_Component) {
       });
     }
   }, {
+    key: "switchMode",
+    value: function switchMode() {
+      this.setState({
+        mode: this.state.mode == "edit" ? "show" : "edit"
+      });
+    }
+  }, {
     key: "click",
     value: function click(param) {
       this.setState({
@@ -83767,14 +83873,6 @@ function (_Component) {
     key: "render",
     value: function render() {
       var _this3 = this;
-
-      var showComponent = function showComponent(props) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TitleAndText_js__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          text: _this3.state.memoTitle,
-          memoId: _this3.state.memoId,
-          memoTitle: _this3.state.memoTitle
-        });
-      };
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container-fluid"
@@ -83820,7 +83918,11 @@ function (_Component) {
         onClick: function onClick() {
           return _this3.click("test333");
         }
-      }, "test3")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(MemoContent, {
+      }, "test3")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: function onClick() {
+          _this3.switchMode();
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(MemoContent, {
         mode: this.state.mode,
         text: this.state.memoTitle,
         memoId: this.state.memoId,
@@ -83848,6 +83950,7 @@ function (_Component2) {
   _createClass(MemoContent, [{
     key: "render",
     value: function render() {
+      console.log(this.props.mode);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-9",
         style: {
@@ -83857,7 +83960,11 @@ function (_Component2) {
         text: this.props.memoTitle,
         memoId: this.props.memoId,
         memoTitle: this.props.memoTitle
-      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Hello"));
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Edit_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        text: this.props.memoTitle,
+        memoId: this.props.memoId,
+        memoTitle: this.props.memoTitle
+      }));
     }
   }]);
 
@@ -83917,8 +84024,7 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TitleAndText).call(this, props));
     _this.state = {
-      editorState: "",
-      mode: "preview"
+      editorState: ""
     };
     return _this;
   }
