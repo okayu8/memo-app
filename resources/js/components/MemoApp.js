@@ -14,6 +14,7 @@ export default class MemoApp extends Component {
             memoText: 'This is Memo Text',
             memosData: '',
             mode: 'show',
+            reduxText: 'ADDTASK'
         }
     }
 
@@ -30,6 +31,13 @@ export default class MemoApp extends Component {
             .catch(function (error) {
                 console.log(error)
             })
+    }
+
+    AddTasks() {
+        if (!(this.state.reduxText)) {
+            return
+        }
+        this.props.handleTodoAdd("test")
     }
 
     switchMode() {
@@ -53,6 +61,7 @@ export default class MemoApp extends Component {
                             style={{ backgroundColor: "rgb(172, 27, 46)", color: "#FFFFFF", fontSize: 18 }}>
                             Memo Title
                                 <button
+                                onClick={() => this.AddTasks()}
                                 className="btn"
                                 style={{
                                     position: "absolute",

@@ -83832,7 +83832,8 @@ function (_Component) {
       memoTitle: 'Memo App',
       memoText: 'This is Memo Text',
       memosData: '',
-      mode: 'show'
+      mode: 'show',
+      reduxText: 'ADDTASK'
     };
     return _this;
   }
@@ -83853,6 +83854,15 @@ function (_Component) {
       }).catch(function (error) {
         console.log(error);
       });
+    }
+  }, {
+    key: "AddTasks",
+    value: function AddTasks() {
+      if (!this.state.reduxText) {
+        return;
+      }
+
+      this.props.handleTodoAdd("test");
     }
   }, {
     key: "switchMode",
@@ -83893,6 +83903,9 @@ function (_Component) {
           fontSize: 18
         }
       }, "Memo Title", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: function onClick() {
+          return _this3.AddTasks();
+        },
         className: "btn",
         style: {
           position: "absolute",
