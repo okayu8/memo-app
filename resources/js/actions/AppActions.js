@@ -1,28 +1,23 @@
-const Actions = {
-    addTodo(value) {
-        return {
-            type: 'ADDTASK',
-            value,
-        }
-    },
-    fixTodo(value) {
-        return {
-            type: 'FIXTASK',
-            value,
-        }
-    },
-    updTodo(value) {
-        return {
-            type: 'UPDTASK',
-            value,
-        }
-    },
-    delTodo(value) {
-        return {
-            type: 'DELTASK',
-            value,
-        }
-    },
+import * as App from '../constants/App';
+
+export function addTodo(name, dueTo) {
+    return {
+        type: App.ADD_TODO,
+        todo: { name, dueTo },
+    };
 }
 
-export default Actions
+export function delTodo(id) {
+    return {
+        type: App.DEL_TODO,
+        id,
+    };
+}
+
+export function changeDidFlag(id, flag) {
+    return {
+        type: App.DEL_TODO,
+        id,
+        flag,
+    };
+}

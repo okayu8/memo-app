@@ -7,11 +7,13 @@ export default class Edit extends Component {
         super(props);
         this.state = {
             editorState: "",
+            text: ""
         }
     }
 
     componentDidMount() {
         this.setState({ editorState: "" })
+        this.setState({ text: this.props.text })
     }
 
     render() {
