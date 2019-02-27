@@ -83589,6 +83589,45 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/actions/AppActions.js":
+/*!********************************************!*\
+  !*** ./resources/js/actions/AppActions.js ***!
+  \********************************************/
+/*! exports provided: addTodo, delTodo, changeDidFlag */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addTodo", function() { return addTodo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "delTodo", function() { return delTodo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeDidFlag", function() { return changeDidFlag; });
+/* harmony import */ var _constants_App__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/App */ "./resources/js/constants/App.js");
+
+function addTodo(name, dueTo) {
+  return {
+    type: _constants_App__WEBPACK_IMPORTED_MODULE_0__["ADD_TODO"],
+    todo: {
+      name: name,
+      dueTo: dueTo
+    }
+  };
+}
+function delTodo(id) {
+  return {
+    type: _constants_App__WEBPACK_IMPORTED_MODULE_0__["DEL_TODO"],
+    id: id
+  };
+}
+function changeDidFlag(id, flag) {
+  return {
+    type: _constants_App__WEBPACK_IMPORTED_MODULE_0__["DEL_TODO"],
+    id: id,
+    flag: flag
+  };
+}
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -83792,6 +83831,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _TitleAndText_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TitleAndText.js */ "./resources/js/components/TitleAndText.js");
 /* harmony import */ var _Edit_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Edit.js */ "./resources/js/components/Edit.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_AppActions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../actions/AppActions */ "./resources/js/actions/AppActions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -83816,6 +83858,9 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
+
 var MemoApp =
 /*#__PURE__*/
 function (_Component) {
@@ -83833,7 +83878,8 @@ function (_Component) {
       memoText: 'This is Memo Text',
       memosData: '',
       mode: 'show',
-      reduxText: 'ADDTASK'
+      reduxText: 'ADDTASK',
+      todo: ""
     };
     return _this;
   }
@@ -83854,15 +83900,6 @@ function (_Component) {
       }).catch(function (error) {
         console.log(error);
       });
-    }
-  }, {
-    key: "AddTasks",
-    value: function AddTasks() {
-      if (!this.state.reduxText) {
-        return;
-      }
-
-      this.props.handleTodoAdd("test");
     }
   }, {
     key: "switchMode",
@@ -83983,10 +84020,30 @@ function (_Component2) {
 
   return MemoContent;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+/* MemoApp.propTypes = {
+    title: PropTypes.string.isRequired,
+    children: PropTypes.any.isRequired,
+    todo: PropTypes.object.isRequired,
+    todoActions: PropTypes.object.isRequired,
+}; */
+// state の中に store.js の combineReducers で指定したキーの State が全部入ってくる
 
-if (document.getElementById('memoApp')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(MemoApp, null), document.getElementById('memoApp'));
+
+function mapStateToProps(state) {
+  return {
+    todo: state.todo
+  };
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    todoActions: Object(redux__WEBPACK_IMPORTED_MODULE_5__["bindActionCreators"])(_actions_AppActions__WEBPACK_IMPORTED_MODULE_7__, dispatch)
+  };
+}
+/* export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MemoApp); */
 
 /***/ }),
 
@@ -84111,6 +84168,24 @@ function (_Component) {
 
 /***/ }),
 
+/***/ "./resources/js/constants/App.js":
+/*!***************************************!*\
+  !*** ./resources/js/constants/App.js ***!
+  \***************************************/
+/*! exports provided: ADD_TODO, DEL_TODO, CHANGE_DID_FLAG */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_TODO", function() { return ADD_TODO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DEL_TODO", function() { return DEL_TODO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CHANGE_DID_FLAG", function() { return CHANGE_DID_FLAG; });
+var ADD_TODO = 'ADD_TODO';
+var DEL_TODO = 'DEL_TODO';
+var CHANGE_DID_FLAG = 'CHANGE_DID_FLAG';
+
+/***/ }),
+
 /***/ "./resources/js/index.js":
 /*!*******************************!*\
   !*** ./resources/js/index.js ***!
@@ -84124,25 +84199,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _components_MemoApp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/MemoApp */ "./resources/js/components/MemoApp.js");
-/* harmony import */ var _reducers_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./reducers/reducer */ "./resources/js/reducers/reducer.js");
-
- // ①
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _components_MemoApp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/MemoApp */ "./resources/js/components/MemoApp.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
 
 
- // ② 4の項目で解説
 
- // ③ 次の項目で解説
 
- // ④
 
-var store = Object(redux__WEBPACK_IMPORTED_MODULE_2__["createStore"])(_reducers_reducer__WEBPACK_IMPORTED_MODULE_5__["default"]); // ⑤
+var store = Object(_store__WEBPACK_IMPORTED_MODULE_4__["default"])(); // ⑤
 
-react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_3__["Provider"], {
+react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_2__["Provider"], {
   store: store
-}, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_MemoApp__WEBPACK_IMPORTED_MODULE_4__["default"], null)), document.getElementById('root'));
+}, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_MemoApp__WEBPACK_IMPORTED_MODULE_3__["default"], null)), document.getElementById('root'));
 
 /***/ }),
 
@@ -84155,46 +84224,107 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-// 初期State
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return todo; });
+/* harmony import */ var _constants_App__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/App */ "./resources/js/constants/App.js");
+
 var initialState = {
-  tasks: [],
-  text: '' // Reducer処理
-
+  todoList: [],
+  id: 0,
+  didCount: 0
 };
-
-var reducer = function reducer() {
+function todo() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
+  var todoList = [].concat(state.todoList);
+  var actionId = action.id;
 
   switch (action.type) {
-    case 'ADDTASK':
-      {
-        return console.log(action.value);
-      }
+    case _constants_App__WEBPACK_IMPORTED_MODULE_0__["ADD_TODO"]:
+      var _action$todo = action.todo,
+          name = _action$todo.name,
+          dueTo = _action$todo.dueTo;
+      var stateId = state.id + 1;
+      todoList.push({
+        stateId: stateId,
+        name: name,
+        dueTo: dueTo,
+        did: false
+      });
+      return Object.assign({}, state, {
+        todoList: todoList,
+        id: stateId
+      });
 
-    case 'ENDTASK':
-      {
-        return console.log(action.value);
-      }
+    case _constants_App__WEBPACK_IMPORTED_MODULE_0__["DEL_TODO"]:
+      var filteredList = todoList.filter(function (item) {
+        return item.id != actionId;
+      });
+      return Object.assign({}, state, {
+        filteredList: filteredList
+      });
 
-    case 'UPDTASK':
-      {
-        return console.log(action.value);
-      }
+    case _constants_App__WEBPACK_IMPORTED_MODULE_0__["CHANGE_DID_FLAG"]:
+      var targetIndex = todoList.findIndex(function (item) {
+        return item.id == actionId;
+      });
 
-    case 'DELTASK':
-      {
-        return console.log(action.value);
-      }
-
-    default:
-      {
+      if (targetIndex != -1) {
         return state;
       }
-  }
-};
 
-/* harmony default export */ __webpack_exports__["default"] = (reducer);
+      var flag = action.flag;
+      var didCount = flag ? state.didCount + 1 : state.didCount - 1;
+      todoList[targetIndex].did = flag;
+      return Object.assign({}, state, {
+        todoList: todoList,
+        didCount: didCount
+      });
+
+    default:
+      return state;
+  }
+}
+
+/***/ }),
+
+/***/ "./resources/js/rootReducer.js":
+/*!*************************************!*\
+  !*** ./resources/js/rootReducer.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _reducers_reducer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reducers/reducer.js */ "./resources/js/reducers/reducer.js");
+
+
+var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
+  reducer: _reducers_reducer_js__WEBPACK_IMPORTED_MODULE_1__["default"]
+});
+/* harmony default export */ __webpack_exports__["default"] = (rootReducer);
+
+/***/ }),
+
+/***/ "./resources/js/store.js":
+/*!*******************************!*\
+  !*** ./resources/js/store.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createFinalStore; });
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _rootReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rootReducer */ "./resources/js/rootReducer.js");
+
+
+function createFinalStore() {
+  var finalCreateStore = Object(redux__WEBPACK_IMPORTED_MODULE_0__["compose"])()(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"]);
+  return finalCreateStore(_rootReducer__WEBPACK_IMPORTED_MODULE_1__["default"]);
+}
 
 /***/ }),
 

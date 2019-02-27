@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import TitleAndText from './TitleAndText.js';
 import Edit from './Edit.js';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as AppActions from '../actions/AppActions';
 
 export default class MemoApp extends Component {
 
@@ -14,7 +17,8 @@ export default class MemoApp extends Component {
             memoText: 'This is Memo Text',
             memosData: '',
             mode: 'show',
-            reduxText: 'ADDTASK'
+            reduxText: 'ADDTASK',
+            todo: ""
         }
     }
 
@@ -31,13 +35,6 @@ export default class MemoApp extends Component {
             .catch(function (error) {
                 console.log(error)
             })
-    }
-
-    AddTasks() {
-        if (!(this.state.reduxText)) {
-            return
-        }
-        this.props.handleTodoAdd("test")
     }
 
     switchMode() {
@@ -119,6 +116,29 @@ class MemoContent extends Component {
     }
 }
 
-if (document.getElementById('memoApp')) {
-    ReactDOM.render(<MemoApp />, document.getElementById('memoApp'));
+/* MemoApp.propTypes = {
+    title: PropTypes.string.isRequired,
+    children: PropTypes.any.isRequired,
+    todo: PropTypes.object.isRequired,
+    todoActions: PropTypes.object.isRequired,
+}; */
+
+// state の中に store.js の combineReducers で指定したキーの State が全部入ってくる
+function mapStateToProps(state) {
+    return {
+        todo: state.todo,
+    };
 }
+
+function mapDispatchToProps(dispatch) {
+    return {
+        todoActions: bindActionCreators(AppActions, dispatch),
+    };
+}
+
+/* export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MemoApp); */
+
+
