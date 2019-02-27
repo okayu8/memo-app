@@ -5,9 +5,9 @@ import TitleAndText from './TitleAndText.js';
 import Edit from './Edit.js';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as AppActions from '../actions/AppActions';
+import { addText, clearText } from '../actions/AppActions';
 
-export default class MemoApp extends Component {
+class MemoApp extends Component {
 
     constructor(props) {
         super(props);
@@ -81,7 +81,6 @@ export default class MemoApp extends Component {
                         </ul>
                     </div>
                 </div>
-                <button onClick={() => { this.switchMode() }} />
                 <MemoContent
                     mode={this.state.mode}
                     text={this.state.memoTitle}
@@ -89,9 +88,43 @@ export default class MemoApp extends Component {
                     memoTitle={this.state.memoTitle}
                 />
 
+                {/* 以下テスト */}
+                <button onClick={() => { this.switchMode() }} />
+                <input type='text' ref='input' /><br />
+                <button onClick={(e) => this.onAddBtnClicked(e)}   >Add</button>
+                <button onClick={(e) => this.onClearBtnClicked(e)} >Clear</button>
+                <ul>
+                    {
+                        //state中のオブジェクトをループさせて<li>要素を描画。stateは selector() メソッドで指定しているものがpropsとして渡ってくる
+                        this.props.state.storedText.map((obj) =>
+                            <li key={obj.id} >
+                                {obj.text}
+                            </li>
+                        )
+                    }
+                </ul>
+                {/* 以上テスト */}
             </div>
+
         </div>);
     }
+
+    onAddBtnClicked(e) {
+        let input = this.refs.input
+        let text = input.value.trim()
+        if (!text) return alert('何かテキストを入力してください。')
+        input.value = ''
+        // Appコンポーネントが connect() メソッドでラップされていることによって、dispatchメソッドを呼び出すことが可能になる
+        // dispatch() メソッドで ActionCreator である addText() メソッドをラップして呼び出すことによってデータの変更を伝播する
+        this.props.dispatch(addText(text))
+    }
+
+    //Clear ボタンをクリックした時に呼び出される
+    onClearBtnClicked(e) {
+        // dispatchメソッドで ActionCreator であるclearText() メソッドをラップして呼び出すことによってデータの変更を伝播する
+        this.props.dispatch(clearText())
+    }
+
 }
 
 class MemoContent extends Component {
@@ -116,29 +149,17 @@ class MemoContent extends Component {
     }
 }
 
-/* MemoApp.propTypes = {
-    title: PropTypes.string.isRequired,
-    children: PropTypes.any.isRequired,
-    todo: PropTypes.object.isRequired,
-    todoActions: PropTypes.object.isRequired,
-}; */
 
-// state の中に store.js の combineReducers で指定したキーの State が全部入ってくる
-function mapStateToProps(state) {
+
+// セレクターの定義: Appコンポーネントが必要とするデータを グローバルなstate 全体の中から取捨選択して取得する。今回は state 全体をそのままreturnしている
+let selector = (state) => {
+    // [storedText]というキー名はreducer.jsの最下部で設定している Store のキー名
+    console.log(state.storedText);
     return {
-        todo: state.todo,
-    };
+        state: state // Key名とvalue名が同じなので return {state} でも可: Object Literal Shorthand
+    }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        todoActions: bindActionCreators(AppActions, dispatch),
-    };
-}
-
-/* export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(MemoApp); */
+export default connect(selector)(MemoApp)
 
 
