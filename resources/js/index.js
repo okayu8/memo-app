@@ -1,23 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-// ①
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-
-// ② 4の項目で解説
+import { createStore } from 'redux'
 import MemoApp from './components/MemoApp'
+import { store } from './reducers/reducer'
 
-// ③ 次の項目で解説
-import reducer from './reducers/reducer'
-
-
-// ④
-const store = createStore(reducer)
+let applicationStore = createStore(store);
+let rootElement = document.getElementById('root');
 
 // ⑤
 ReactDOM.render(
-    <Provider store={store}>
+    <Provider store={applicationStore}>
         <MemoApp />
     </Provider>,
-    document.getElementById('root')
+    rootElement
 )

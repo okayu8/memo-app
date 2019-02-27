@@ -83589,6 +83589,46 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/actions/AppActions.js":
+/*!********************************************!*\
+  !*** ./resources/js/actions/AppActions.js ***!
+  \********************************************/
+/*! exports provided: ADD_TEXT, CLEAR_TEXT, addText, clearText */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_TEXT", function() { return ADD_TEXT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLEAR_TEXT", function() { return CLEAR_TEXT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addText", function() { return addText; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearText", function() { return clearText; });
+var ADD_TEXT = 'ADD_TEXT';
+var CLEAR_TEXT = 'CLEAR_TEXT';
+var textId = 1;
+/*
+  Action Creator:
+  Appコンポーネント (src/App.js) から呼ばれる Action Creator群
+  App.jsから呼ばれ、Action Creator内部で生成されたオブジェクトはreducer (./reducers) に渡される。
+*/
+//addText (Action Creator) : Appコンポーネント (App.js) でAddボタンを呼び出した時に呼ばれる。
+// type (何のアクションなのかを示す定数であり必須) と下記関数はApp.jsから渡されたテキストを包含したオブジェクトを return する。return されたオブジェクトは後述のReducerに渡される。
+
+function addText(newText) {
+  return {
+    type: ADD_TEXT,
+    id: textId++,
+    text: newText
+  };
+} //clearText (Action Creator) : Appコンポーネント (App.js) でClearボタンを呼び出した時に呼ばれる。
+
+function clearText() {
+  return {
+    type: CLEAR_TEXT
+  };
+}
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -83677,6 +83717,103 @@ if (token) {
 
 /***/ }),
 
+/***/ "./resources/js/components/Edit.js":
+/*!*****************************************!*\
+  !*** ./resources/js/components/Edit.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Edit; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var draft_js_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! draft-js-editor */ "./node_modules/draft-js-editor/lib/Editor.js");
+/* harmony import */ var draft_js_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(draft_js_editor__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var Edit =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Edit, _Component);
+
+  function Edit(props) {
+    var _this;
+
+    _classCallCheck(this, Edit);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Edit).call(this, props));
+    _this.state = {
+      editorState: "",
+      text: ""
+    };
+    return _this;
+  }
+
+  _createClass(Edit, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.setState({
+        editorState: ""
+      });
+      this.setState({
+        text: this.props.text
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-header",
+        style: {
+          backgroundColor: "#008ECC",
+          color: "#FFFFFF",
+          fontSize: 18
+        }
+      }, this.props.memoTitle), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body"
+      }, this.props.text, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(draft_js_editor__WEBPACK_IMPORTED_MODULE_1___default.a, {
+        onChange: function onChange(editorState) {
+          return _this2.setState({
+            editorState: editorState
+          });
+        },
+        editorState: this.state.editorState
+      })));
+    }
+  }]);
+
+  return Edit;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/MemoApp.js":
 /*!********************************************!*\
   !*** ./resources/js/components/MemoApp.js ***!
@@ -83686,7 +83823,6 @@ if (token) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return MemoApp; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
@@ -83694,6 +83830,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _TitleAndText_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TitleAndText.js */ "./resources/js/components/TitleAndText.js");
+/* harmony import */ var _Edit_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Edit.js */ "./resources/js/components/Edit.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_AppActions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../actions/AppActions */ "./resources/js/actions/AppActions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -83717,6 +83857,10 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
+
+
 var MemoApp =
 /*#__PURE__*/
 function (_Component) {
@@ -83733,7 +83877,9 @@ function (_Component) {
       memoTitle: 'Memo App',
       memoText: 'This is Memo Text',
       memosData: '',
-      mode: 'show'
+      mode: 'show',
+      reduxText: 'ADDTASK',
+      todo: ""
     };
     return _this;
   }
@@ -83756,6 +83902,13 @@ function (_Component) {
       });
     }
   }, {
+    key: "switchMode",
+    value: function switchMode() {
+      this.setState({
+        mode: this.state.mode == "edit" ? "show" : "edit"
+      });
+    }
+  }, {
     key: "click",
     value: function click(param) {
       this.setState({
@@ -83767,14 +83920,6 @@ function (_Component) {
     key: "render",
     value: function render() {
       var _this3 = this;
-
-      var showComponent = function showComponent(props) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TitleAndText_js__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          text: _this3.state.memoTitle,
-          memoId: _this3.state.memoId,
-          memoTitle: _this3.state.memoTitle
-        });
-      };
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container-fluid"
@@ -83795,6 +83940,9 @@ function (_Component) {
           fontSize: 18
         }
       }, "Memo Title", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: function onClick() {
+          return _this3.AddTasks();
+        },
         className: "btn",
         style: {
           position: "absolute",
@@ -83825,14 +83973,50 @@ function (_Component) {
         text: this.state.memoTitle,
         memoId: this.state.memoId,
         memoTitle: this.state.memoTitle
-      })));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: function onClick() {
+          _this3.switchMode();
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        ref: "input"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: function onClick(e) {
+          return _this3.onAddBtnClicked(e);
+        }
+      }, "Add"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: function onClick(e) {
+          return _this3.onClearBtnClicked(e);
+        }
+      }, "Clear"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, //state中のオブジェクトをループさせて<li>要素を描画。stateは selector() メソッドで指定しているものがpropsとして渡ってくる
+      this.props.state.storedText.map(function (obj) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          key: obj.id
+        }, obj.text);
+      }))));
+    }
+  }, {
+    key: "onAddBtnClicked",
+    value: function onAddBtnClicked(e) {
+      var input = this.refs.input;
+      var text = input.value.trim();
+      if (!text) return alert('何かテキストを入力してください。');
+      input.value = ''; // Appコンポーネントが connect() メソッドでラップされていることによって、dispatchメソッドを呼び出すことが可能になる
+      // dispatch() メソッドで ActionCreator である addText() メソッドをラップして呼び出すことによってデータの変更を伝播する
+
+      this.props.dispatch(Object(_actions_AppActions__WEBPACK_IMPORTED_MODULE_7__["addText"])(text));
+    } //Clear ボタンをクリックした時に呼び出される
+
+  }, {
+    key: "onClearBtnClicked",
+    value: function onClearBtnClicked(e) {
+      // dispatchメソッドで ActionCreator であるclearText() メソッドをラップして呼び出すことによってデータの変更を伝播する
+      this.props.dispatch(Object(_actions_AppActions__WEBPACK_IMPORTED_MODULE_7__["clearText"])());
     }
   }]);
 
   return MemoApp;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-
 
 var MemoContent =
 /*#__PURE__*/
@@ -83848,6 +84032,7 @@ function (_Component2) {
   _createClass(MemoContent, [{
     key: "render",
     value: function render() {
+      console.log(this.props.mode);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-9",
         style: {
@@ -83857,16 +84042,28 @@ function (_Component2) {
         text: this.props.memoTitle,
         memoId: this.props.memoId,
         memoTitle: this.props.memoTitle
-      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Hello"));
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Edit_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        text: this.props.memoTitle,
+        memoId: this.props.memoId,
+        memoTitle: this.props.memoTitle
+      }));
     }
   }]);
 
   return MemoContent;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]); // セレクターの定義: Appコンポーネントが必要とするデータを グローバルなstate 全体の中から取捨選択して取得する。今回は state 全体をそのままreturnしている
 
-if (document.getElementById('memoApp')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(MemoApp, null), document.getElementById('memoApp'));
-}
+
+var selector = function selector(state) {
+  // [storedText]というキー名はreducer.jsの最下部で設定している Store のキー名
+  console.log(state.storedText);
+  return {
+    state: state // Key名とvalue名が同じなので return {state} でも可: Object Literal Shorthand
+
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_6__["connect"])(selector)(MemoApp));
 
 /***/ }),
 
@@ -83917,8 +84114,7 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TitleAndText).call(this, props));
     _this.state = {
-      editorState: "",
-      mode: "preview"
+      editorState: ""
     };
     return _this;
   }
@@ -84005,25 +84201,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _components_MemoApp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/MemoApp */ "./resources/js/components/MemoApp.js");
 /* harmony import */ var _reducers_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./reducers/reducer */ "./resources/js/reducers/reducer.js");
 
- // ①
 
 
- // ② 4の項目で解説
 
- // ③ 次の項目で解説
 
- // ④
 
-var store = Object(redux__WEBPACK_IMPORTED_MODULE_2__["createStore"])(_reducers_reducer__WEBPACK_IMPORTED_MODULE_5__["default"]); // ⑤
+var applicationStore = Object(redux__WEBPACK_IMPORTED_MODULE_3__["createStore"])(_reducers_reducer__WEBPACK_IMPORTED_MODULE_5__["store"]);
+var rootElement = document.getElementById('root'); // ⑤
 
-react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_3__["Provider"], {
-  store: store
-}, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_MemoApp__WEBPACK_IMPORTED_MODULE_4__["default"], null)), document.getElementById('root'));
+react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_2__["Provider"], {
+  store: applicationStore
+}, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_MemoApp__WEBPACK_IMPORTED_MODULE_4__["default"], null)), rootElement);
 
 /***/ }),
 
@@ -84031,51 +84224,61 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_
 /*!******************************************!*\
   !*** ./resources/js/reducers/reducer.js ***!
   \******************************************/
-/*! exports provided: default */
+/*! exports provided: store */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-// 初期State
-var initialState = {
-  tasks: [],
-  text: '' // Reducer処理
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _actions_AppActions_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/AppActions.js */ "./resources/js/actions/AppActions.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
-};
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
 
-var reducer = function reducer() {
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+
+
+/*
+  Reducer:
+  ReducerはAction Creatorから渡されたデータをもとに新しい State を作成して返す。
+*/
+// アプリ起動時のstate
+
+var initialState = [{
+  id: 0,
+  text: 'Hello Redux and React!'
+}]; // State がundefinedの場合はデフォルト引数でinitialStateを使用するようにする
+
+var text = function text() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case 'ADDTASK':
+    case _actions_AppActions_js__WEBPACK_IMPORTED_MODULE_1__["ADD_TEXT"]:
+      //ADD_TEXTアクションが来た時は現状の state にAction Creatorから returnされたデータを元に新規オブジェクトを作成、state にプラスして新しい state を返す
+      return [].concat(_toConsumableArray(state), [//下記はADD_TEXTアクションによって新たに state に追加されるオブジェクト
       {
-        return console.log(action.value);
-      }
+        id: action.id,
+        text: action.text
+      }]);
 
-    case 'ENDTASK':
-      {
-        return console.log(action.value);
-      }
-
-    case 'UPDTASK':
-      {
-        return console.log(action.value);
-      }
-
-    case 'DELTASK':
-      {
-        return console.log(action.value);
-      }
+    case _actions_AppActions_js__WEBPACK_IMPORTED_MODULE_1__["CLEAR_TEXT"]:
+      // CLEAT_TEXTアクションが来た場合には空の配列を返して state を初期化する
+      return [];
 
     default:
-      {
-        return state;
-      }
+      return state;
   }
-};
+}; // entry.js内部で Provider コンポーネントにセットするデータストア。<Provider>以下でthis.props.state.storedTextの形で state にアクセス可能。
 
-/* harmony default export */ __webpack_exports__["default"] = (reducer);
+
+var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
+  storedText: text
+});
 
 /***/ }),
 
