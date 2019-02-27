@@ -1,43 +1,44 @@
-import * as App from '../constants/App';
+import { combineReducers } from 'redux'
+import { ADD_TEXT, CLEAR_TEXT } from '../actions/AppActions.js';
 
-const initialState = {
-    todoList: [],
-    id: 0,
-    didCount: 0,
+/*
+  Reducer:
+  ReducerはAction Creatorから渡されたデータをもとに新しい State を作成して返す。
+*/
+
+// アプリ起動時のstate
+let initialState = [
+    {
+        id: 0,
+        text: 'Hello Redux and React!'
+    }
+]
+
+// State がundefinedの場合はデフォルト引数でinitialStateを使用するようにする
+let text = (state = initialState, action) => {
+    switch (action.type) {
+        case ADD_TEXT:
+            //ADD_TEXTアクションが来た時は現状の state にAction Creatorから returnされたデータを元に新規オブジェクトを作成、state にプラスして新しい state を返す
+            return [
+                // Spread Operator (...) で現状の state を全て要素として配列中に展開する: https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Spread_operator
+                ...state,
+                //下記はADD_TEXTアクションによって新たに state に追加されるオブジェクト
+                {
+                    id: action.id,
+                    text: action.text
+                }
+            ];
+        case CLEAR_TEXT:
+            // CLEAT_TEXTアクションが来た場合には空の配列を返して state を初期化する
+            return []
+        default:
+            return state
+    }
 };
 
-export default function todo(state = initialState, action) {
-    const todoList = [].concat(state.todoList);
-    const actionId = action.id;
-
-    switch (action.type) {
-        case App.ADD_TODO:
-            const { name, dueTo } = action.todo;
-            const stateId = state.id + 1;
-            todoList.push({ stateId, name, dueTo, did: false });
-            return Object.assign({}, state, {
-                todoList,
-                id: stateId,
-            });
-        case App.DEL_TODO:
-            const filteredList = todoList.filter(item => item.id != actionId);
-            return Object.assign({}, state, {
-                filteredList,
-            });
-        case App.CHANGE_DID_FLAG:
-            const targetIndex = todoList.findIndex(item => item.id == actionId);
-            if (targetIndex != -1) {
-                return state;
-            }
-
-            const flag = action.flag;
-            const didCount = flag ? state.didCount + 1 : state.didCount - 1;
-            todoList[targetIndex].did = flag;
-            return Object.assign({}, state, {
-                todoList,
-                didCount,
-            });
-        default:
-            return state;
+// entry.js内部で Provider コンポーネントにセットするデータストア。<Provider>以下でthis.props.state.storedTextの形で state にアクセス可能。
+export const store = combineReducers(
+    {
+        storedText: text
     }
-}
+)

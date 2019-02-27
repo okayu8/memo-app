@@ -1,23 +1,26 @@
-import * as App from '../constants/App';
+export const ADD_TEXT = 'ADD_TEXT'
+export const CLEAR_TEXT = 'CLEAR_TEXT'
+let textId = 1
 
-export function addTodo(name, dueTo) {
+/*
+  Action Creator:
+  Appコンポーネント (src/App.js) から呼ばれる Action Creator群
+  App.jsから呼ばれ、Action Creator内部で生成されたオブジェクトはreducer (./reducers) に渡される。
+*/
+
+//addText (Action Creator) : Appコンポーネント (App.js) でAddボタンを呼び出した時に呼ばれる。
+// type (何のアクションなのかを示す定数であり必須) と下記関数はApp.jsから渡されたテキストを包含したオブジェクトを return する。return されたオブジェクトは後述のReducerに渡される。
+export function addText(newText) {
     return {
-        type: App.ADD_TODO,
-        todo: { name, dueTo },
+        type: ADD_TEXT,
+        id: textId++,
+        text: newText
     };
 }
 
-export function delTodo(id) {
+//clearText (Action Creator) : Appコンポーネント (App.js) でClearボタンを呼び出した時に呼ばれる。
+export function clearText() {
     return {
-        type: App.DEL_TODO,
-        id,
-    };
-}
-
-export function changeDidFlag(id, flag) {
-    return {
-        type: App.DEL_TODO,
-        id,
-        flag,
+        type: CLEAR_TEXT
     };
 }

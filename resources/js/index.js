@@ -1,15 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 import MemoApp from './components/MemoApp'
-import createFinalStore from './store';
+import { store } from './reducers/reducer'
 
-const store = createFinalStore()
+let applicationStore = createStore(store);
+let rootElement = document.getElementById('root');
 
 // ⑤
 ReactDOM.render(
-    <Provider store={store}>
+    <Provider store={applicationStore}>
         <MemoApp />
     </Provider>,
-    document.getElementById('root')
+    rootElement
 )
