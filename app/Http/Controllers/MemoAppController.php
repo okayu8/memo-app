@@ -27,7 +27,7 @@ class MemoAppController extends Controller
             'title' => 'required|max:255',
             'text' => 'required|max:6000',
         ]);
-        $memos = new Memo();
+        $memos = new MemoApp();
         $user = Auth::user();
         $memos->title = $request->title;
         $memos->text = $request->text;

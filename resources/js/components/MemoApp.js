@@ -17,8 +17,6 @@ class MemoApp extends Component {
             memoText: 'This is Memo Text',
             memosData: '',
             mode: 'show',
-            reduxText: 'ADDTASK',
-            todo: ""
         }
     }
 
@@ -58,7 +56,7 @@ class MemoApp extends Component {
                             style={{ backgroundColor: "rgb(172, 27, 46)", color: "#FFFFFF", fontSize: 18 }}>
                             Memo Title
                                 <button
-                                onClick={() => this.AddTasks()}
+                                onClick={}
                                 className="btn"
                                 style={{
                                     position: "absolute",
